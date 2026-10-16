@@ -61,16 +61,9 @@ body {
   bottom: -9px;
 }
 
-/* Buttons use Mantine's per-variant hover colour (ink -> pole red for filled)
-   on every device, not only hover-capable ones: Mantine gates its own hover
-   behind @media (hover: hover). */
+/* Smooth the ink -> pole red hover that the theme's ink tuple gives filled buttons. */
 .mantine-Button-root {
   transition:
     background-color 160ms ease,
     transform 100ms ease;
-}
-
-.mantine-Button-root:hover,
-.mantine-Button-root:focus-visible {
-  background-color: var(--button-hover);
 }
