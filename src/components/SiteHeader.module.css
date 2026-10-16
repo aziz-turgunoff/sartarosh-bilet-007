@@ -1,0 +1,32 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+}
+
+.wordmark {
+  font-family: var(--mantine-font-family-headings);
+  font-size: 1.75rem;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+.navLink {
+  color: var(--pole-blue);
+  font-weight: 600;
+}
+
+.navLink:hover {
+  text-decoration: none;
+  color: var(--pole-red);
+}
+
+.wordmark:focus-visible,
+.navLink:focus-visible {
+  outline: 2px solid var(--pole-red);
+  outline-offset: 4px;
+  border-radius: 2px;
+}

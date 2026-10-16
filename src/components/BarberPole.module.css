@@ -1,0 +1,39 @@
+/* A 45deg stripe with a 56px period tiles seamlessly on a 56 * sqrt(2) = 79.2px square. */
+.pole {
+  position: sticky;
+  top: 64px;
+  z-index: 9;
+  height: 10px;
+  background-image: var(--pole-stripe);
+  background-size: 79.2px 79.2px;
+  animation: crawl-x 4s linear infinite;
+}
+
+@media (min-width: 48em) {
+  .pole {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 11;
+    width: 14px;
+    height: auto;
+    animation: crawl-y 4s linear infinite;
+  }
+}
+
+@keyframes crawl-x {
+  to {
+    background-position: 79.2px 0;
+  }
+}
+
+@keyframes crawl-y {
+  to {
+    background-position: 0 79.2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pole {
+    animation: none;
+  }
+}

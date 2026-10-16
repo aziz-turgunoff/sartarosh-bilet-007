@@ -1,0 +1,73 @@
+.section {
+  scroll-margin-top: 72px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.title {
+  margin: 0 0 1.5rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.board {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+
+.leader {
+  flex: 1 1 2rem;
+  min-width: 2rem;
+  align-self: flex-end;
+  border-bottom: 2px dotted var(--muted);
+  transform: translateY(-0.35em);
+}
+
+.duration {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--brass);
+  white-space: nowrap;
+}
+
+.cta {
+  align-self: center;
+}
+
+@media (max-width: 30em) {
+  .row {
+    gap: 0.5rem;
+  }
+
+  .name {
+    flex: 1 0 100%;
+  }
+}

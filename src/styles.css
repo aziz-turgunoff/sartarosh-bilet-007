@@ -1,0 +1,76 @@
+:root {
+  --paper: #f4eee3;
+  --ticket: #fffdf8;
+  --ink: #17151a;
+  --pole-red: #c8102e;
+  --pole-blue: #1d4e9e;
+  --brass: #a8803f;
+  --muted: #6b655c;
+  --pole-stripe: repeating-linear-gradient(
+    45deg,
+    #c8102e 0 14px,
+    #f4eee3 14px 28px,
+    #1d4e9e 28px 42px,
+    #f4eee3 42px 56px
+  );
+}
+
+:root,
+:root[data-mantine-color-scheme='light'] {
+  --mantine-color-body: var(--paper);
+  --mantine-color-dimmed: var(--muted);
+  --mantine-color-error: var(--pole-red);
+  --mantine-color-anchor: var(--pole-blue);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+@media (min-width: 48em) {
+  body {
+    padding-left: 14px;
+  }
+}
+
+/* Perforated ticket edges: paper-coloured punch holes bitten into the border. */
+.perf-top,
+.perf-bottom {
+  position: relative;
+}
+
+.perf-top::before,
+.perf-bottom::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  height: 18px;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(circle at 9px 9px, var(--paper) 4px, transparent 4.6px) 0 0 / 18px 18px repeat-x;
+}
+
+.perf-top::before {
+  top: -9px;
+}
+
+.perf-bottom::after {
+  bottom: -9px;
+}
+
+/* Buttons use Mantine's per-variant hover colour (ink -> pole red for filled)
+   on every device, not only hover-capable ones: Mantine gates its own hover
+   behind @media (hover: hover). */
+.mantine-Button-root {
+  transition:
+    background-color 160ms ease,
+    transform 100ms ease;
+}
+
+.mantine-Button-root:hover,
+.mantine-Button-root:focus-visible {
+  background-color: var(--button-hover);
+}
