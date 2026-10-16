@@ -1,7 +1,7 @@
 import { Box, Button, Container, Group, Paper, SimpleGrid, Stack, Text, TextInput, Title } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
-import { useNavigate, useSearchParams } from 'react-router';
+import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import { ServiceOption } from '../components/ServiceOption';
 import { DEFAULT_BOOKING_DATE, SERVICES, TIME_SLOTS } from '../data/services';
 import { isServiceId, type BookingErrors } from '../lib/booking';
@@ -29,18 +29,23 @@ export function BookingForm() {
   const [errors, setErrors] = useState<BookingErrors>({});
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const serviceGroupRef = useRef<HTMLDivElement>(null);
   const timeGroupRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const dateRef = useRef<HTMLButtonElement>(null);
 
-  // Consume ?xizmat= once on mount, then strip it so browser Back cannot
-  // re-apply the preselection over a later choice.
+  // On mount: a fresh entry (home, header, price list) starts with nothing
+  // chosen except the service named by ?xizmat=; only "Qayta tanlash" arrives
+  // with { keep: true } and restores the previous choices. The query is
+  // stripped so browser Back cannot re-apply the preselection later.
   useEffect(() => {
+    const keep = (location.state as { keep?: boolean } | null)?.keep === true;
     const requested = searchParams.get('xizmat');
-    if (requested === null) return;
-    if (isServiceId(requested)) updateDraft({ serviceId: requested });
-    setSearchParams({}, { replace: true });
+    const requestedId = isServiceId(requested) ? requested : null;
+    if (!keep) updateDraft({ name: '', serviceId: requestedId, time: null });
+    else if (requestedId) updateDraft({ serviceId: requestedId });
+    if (requested !== null) setSearchParams({}, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -171,3 +171,27 @@ test('another chosen date is shown in Uzbek and lands in the confirmation', asyn
   expect(card).not.toHaveTextContent('20.11.2026');
 });
 
+
+test('opening the form again from the header starts empty after a booking', async () => {
+  const { user } = renderAt('/yozilish');
+  await completeCheckOne(user);
+  await user.click(within(screen.getByRole('banner')).getAllByRole('link', { name: 'Yozilish' })[0]);
+  for (const id of ['S01', 'S02', 'S03']) {
+    expect(screen.getByTestId(`service-${id}`)).toHaveAttribute('aria-checked', 'false');
+  }
+  for (const slot of ['10:00', '12:00', '14:00']) {
+    expect(screen.getByTestId(`time-${slot}`)).toHaveAttribute('aria-checked', 'false');
+  }
+  expect(screen.getByTestId('name-input')).toHaveValue('');
+});
+
+test('a price-list link preselects only its service, never the time', async () => {
+  const { user } = renderAt('/yozilish');
+  await completeCheckOne(user);
+  await user.click(within(screen.getByRole('banner')).getByRole('link', { name: 'SARTAROSH.' }));
+  await user.click(within(screen.getByTestId('deck-S02')).getByRole('link', { name: 'Yozilish' }));
+  expect(screen.getByTestId('service-S02')).toHaveAttribute('aria-checked', 'true');
+  expect(screen.getByTestId('service-S01')).toHaveAttribute('aria-checked', 'false');
+  expect(screen.getByTestId('time-12:00')).toHaveAttribute('aria-checked', 'false');
+  expect(screen.getByTestId('name-input')).toHaveValue('');
+});

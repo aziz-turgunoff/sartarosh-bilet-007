@@ -46,7 +46,7 @@ export function Confirmation() {
           </Text>
 
           <Group gap="sm">
-            <Button size="md" data-testid="reselect-button" onClick={() => navigate('/yozilish')}>
+            <Button size="md" data-testid="reselect-button" onClick={() => navigate('/yozilish', { state: { keep: true } })}>
               Qayta tanlash
             </Button>
             <Button component={Link} to="/" variant="outline" size="md">
